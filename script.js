@@ -1,3 +1,8 @@
+/*
+    Dependencies: floating.js (for nalu cans)
+    https://animate.style/ for animations
+*/
+
 floating({
     content: '<img src="images/nalucan2.png" class="can" />',
     number: 20,
@@ -33,6 +38,16 @@ function playSound(prefix, randomSuffix, randomMax) {
     audio.play();
 }
 
+function animateElement(className, animation, time) {
+    const item = document.querySelector(className);
+    item.style.setProperty("display", "block");
+    item.style.setProperty("--animate-duration", time.toString() + "s");
+    item.classList.add("animate__animated", "animate__" + animation);
+    item.addEventListener("animationend", () => {
+        item.style.setProperty("display", "none");
+    });
+}
+
 const pubnub = new PubNub({
     subscribeKey: "sub-c-7fffa620-1201-11eb-bc34-ce6fd967af95",
     uuid: "myUniqueUUID",
@@ -59,6 +74,10 @@ pubnub.addListener({
             case "cmd:nalu":
                 canFestival();
                 playSound("nalu", true, 15);
+                break;
+            case "cmd:pogchamp":
+                animateElement(".pog", "bounceOutLeft", 2);
+                playSound("pog", false, 0);
                 break;
             default:
                 break;
