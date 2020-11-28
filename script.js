@@ -54,7 +54,7 @@ const pubnub = new PubNub({
 });
 
 pubnub.subscribe({
-    channels: ["lights"],
+    channels: ["twitch"],
     message: function (m) {
         console.log(m);
     },
