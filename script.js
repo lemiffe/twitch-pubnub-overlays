@@ -1,17 +1,17 @@
 floating({
-    content: '<img src="nalucan2.png" class="can" />',
+    content: '<img src="images/nalucan2.png" class="can" />',
     number: 20,
     duration: 15,
 });
 
 floating({
-    content: '<img src="nalucan3.png" class"can" />',
+    content: '<img src="images/nalucan3.png" class"can" />',
     number: 12,
     duration: 8,
 });
 
 floating({
-    content: '<img src="nalucan.png" class="can" />',
+    content: '<img src="images/nalucan.png" class="can" />',
     number: 13,
     direction: "reverse",
     size: [1, 10],
