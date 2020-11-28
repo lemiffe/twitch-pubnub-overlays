@@ -49,7 +49,7 @@ function animateElement(className, animation, time) {
 }
 
 const pubnub = new PubNub({
-    subscribeKey: "sub-c-7fffa620-1201-11eb-bc34-ce6fd967af95",
+    subscribeKey: "sub-c-eb22fb3e-3185-11eb-9713-12bae088af96",
     uuid: "myUniqueUUID",
 });
 
