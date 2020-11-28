@@ -55,9 +55,13 @@ pubnub.addListener({
     },
     message: function (msg) {
         const text = msg && msg.message && msg.message.text;
-        if (text === "cmd:nalu") {
-            canFestival();
-            playSound("nalu", true, 15);
+        switch (text) {
+            case "cmd:nalu":
+                canFestival();
+                playSound("nalu", true, 15);
+                break;
+            default:
+                break;
         }
     },
     presence: function (presenceEvent) {},
