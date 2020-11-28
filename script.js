@@ -41,7 +41,6 @@ const pubnub = new PubNub({
 pubnub.subscribe({
     channels: ["lights"],
     message: function (m) {
-        //canFestival();
         console.log(m);
     },
     error: function (error) {
