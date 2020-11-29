@@ -123,6 +123,10 @@ pubnub.addListener({
                 item.addEventListener("animationend", () => {
                     item.classList.add("animate__animated", "animate__bounceOutRight");
                     item.style.setProperty("display", "block");
+                    item.addEventListener("animationend", () => {
+                        item.classList.remove("animate__animated", "animate__bounceInLeft", "animate__bounceOutRight");
+                        item.style.setProperty("display", "none");
+                    });
                 });
                 playSound("taxi", false, 0);
                 break;
