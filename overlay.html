@@ -122,7 +122,7 @@ pubnub.addListener({
                 item.classList.add("animate__animated", "animate__bounceInLeft");
                 item.addEventListener("animationend", () => {
                     item.classList.add("animate__animated", "animate__bounceOutRight");
-                    //item.style.setProperty("display", "none");
+                    item.style.setProperty("display", "block");
                 });
                 playSound("taxi", false, 0);
                 break;
