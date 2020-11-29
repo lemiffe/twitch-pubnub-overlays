@@ -8,13 +8,13 @@
 	    .float-container {
 		    display: none;
 	    }
-		.pog {
+		.pog, .taxi {
 			position: absolute;
 			width: 100%;
 			height: 100%;
 			display: none;
 		}
-		.pog img {
+		.pog img, .taxi img {
 			margin: 0;
 			position: absolute;
 			top: 50%;
@@ -29,7 +29,8 @@
 	<script src="floating.js/floating.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
-	<div class="pog"><img src="images/pog.png" /></div>
+    <div class="pog"><img src="images/pog.png" /></div>
+    <div class="taxi"><img src="images/taxi.png" /></div>
 	<script>
 
 /*
@@ -112,6 +113,18 @@ pubnub.addListener({
             case "cmd:pogchamp":
                 animateElement(".pog", "bounceOutLeft", 4);
                 playSound("pog", false, 0);
+                break;
+            case "cmd:taxi":
+                animateElement(".taxi", "bounceInLeft", 4);
+                const item = document.querySelector(".taxi");
+                item.style.setProperty("display", "block");
+                item.style.setProperty("--animate-duration", "2s");
+                item.classList.add("animate__animated", "animate__bounceInLeft");
+                item.addEventListener("animationend", () => {
+                    item.classList.add("animate__animated", "animate__bounceOutRight");
+                    //item.style.setProperty("display", "none");
+                });
+                playSound("taxi", false, 0);
                 break;
             default:
                 break;
