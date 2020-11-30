@@ -8,13 +8,12 @@
 	    .float-container {
 		    display: none;
 	    }
-		.pog, .taxi {
+		div.center {
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			display: none;
 		}
-		.pog img, .taxi img {
+		div.center img {
 			margin: 0;
 			position: absolute;
 			top: 50%;
@@ -22,6 +21,9 @@
 			-ms-transform: translate(-50%, -50%);
 			transform: translate(-50%, -50%);
 		}
+        video::-webkit-media-controls {
+            display: none;
+        }
 	</style>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
@@ -29,8 +31,6 @@
 	<script src="floating.js/floating.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
-    <div class="pog"><img src="images/pog.png" /></div>
-    <div class="taxi"><img src="images/taxi2.png" /></div>
 	<script>
 
 /*
@@ -64,7 +64,7 @@ function canFestival() {
     }, 5000);
 }
 
-function playSound(prefix, randomSuffix, randomMax) {
+function playSound(prefix, randomSuffix = false, randomMax = 0) {
     let suffix = "";
     if (randomSuffix) {
         suffix = (Math.floor(Math.random() * randomMax) + 1).toString();
@@ -73,14 +73,19 @@ function playSound(prefix, randomSuffix, randomMax) {
     audio.play();
 }
 
-function animateElement(className, animation, time) {
-    const item = document.querySelector(className);
-    item.style.setProperty("display", "block");
-    item.style.setProperty("--animate-duration", time.toString() + "s");
-    item.classList.add("animate__animated", "animate__" + animation);
-    item.addEventListener("animationend", () => {
-        item.style.setProperty("display", "none");
-    });
+function createDiv(className = 'center') {
+    const item = document.createElement('div');
+    item.className = className;
+    return item;
+}
+
+function createImg(src, parent = null) {
+    const item = document.createElement('img');
+    item.src = src;
+    if (parent != null) {
+        parent.appendChild(item);
+    }
+    return item;
 }
 
 const pubnub = new PubNub({
@@ -110,26 +115,55 @@ pubnub.addListener({
                 canFestival();
                 playSound("nalu", true, 15);
                 break;
+            
             case "cmd:pogchamp":
-                animateElement(".pog", "bounceOutLeft", 4);
-                playSound("pog", false, 0);
-                break;
-            case "cmd:taxi":
-                animateElement(".taxi", "bounceInLeft", 4);
-                const item = document.querySelector(".taxi");
-                item.style.setProperty("display", "block");
-                item.style.setProperty("--animate-duration", "2s");
-                item.classList.add("animate__animated", "animate__bounceInLeft");
-                item.addEventListener("animationend", () => {
-                    item.classList.add("animate__animated", "animate__bounceOutRight");
-                    item.style.setProperty("display", "block");
-                    item.addEventListener("animationend", () => {
-                        item.classList.remove("animate__animated", "animate__bounceInLeft", "animate__bounceOutRight");
-                        item.style.setProperty("display", "none");
+                const pogDiv = createDiv();
+                pogDiv.style.setProperty("--animate-duration", "1s");
+                pogDiv.classList.add("animate__animated", "animate__fadeIn");
+                pogDiv.addEventListener("animationend", () => {
+                    pogDiv.classList.remove("animate__animated", "animate__fadeIn");
+                    pogDiv.style.setProperty("--animate-duration", "2s");
+                    pogDiv.classList.add("animate__animated", "animate__bounceOutLeft");
+                    pogDiv.addEventListener("animationend", () => {
+                        document.body.removeChild(pogDiv);
                     });
                 });
-                playSound("taxi", false, 0);
+                const pogImg = createImg('images/pog.png', pogDiv);
+                document.body.appendChild(pogDiv);
+                playSound("pog");
                 break;
+            
+            case "cmd:taxi":
+                const taxiDiv = createDiv();
+                taxiDiv.style.setProperty("--animate-duration", "2s");
+                taxiDiv.classList.add("animate__animated", "animate__bounceInLeft");
+                taxiDiv.addEventListener("animationend", () => {
+                    taxiDiv.classList.add("animate__animated", "animate__bounceOutRight");
+                    taxiDiv.style.setProperty("display", "block");
+                    taxiDiv.addEventListener("animationend", () => {
+                        taxiDiv.classList.remove("animate__animated", "animate__bounceInLeft", "animate__bounceOutRight");
+                        document.body.removeChild(taxiDiv);
+                    });
+                });
+                const taxiImg = createImg('images/taxi2.png', taxiDiv);
+                document.body.appendChild(taxiDiv);
+                playSound("taxi");
+                break;
+
+            case "cmd:simp":
+                const simpVideo = document.createElement('video');
+                simpVideo.src = 'videos/simp.webm';
+                simpVideo.type = 'video/webm';
+                simpVideo.autoplay = true;
+                simpVideo.width = "960";
+                simpVideo.controls = false;
+                document.body.appendChild(simpVideo);
+                playSound("simpbleep");
+                setTimeout(function() { 
+                    simpVideo.classList.add("animate__animated", "animate__fadeOut");
+                 }, 5000);
+                setTimeout(function() { document.body.removeChild(simpVideo); }, 6000);
+            
             default:
                 break;
         }
