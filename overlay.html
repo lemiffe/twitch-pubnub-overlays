@@ -163,8 +163,9 @@ pubnub.addListener({
                     simpVideo.classList.add("animate__animated", "animate__fadeOut");
                  }, 5000);
                 setTimeout(function() { document.body.removeChild(simpVideo); }, 6000);
+                break;
             
-                case "cmd:cheese":
+            case "cmd:cheese":
                 const cheeseVideo = document.createElement('video');
                 cheeseVideo.src = 'videos/cheese.mp4';
                 cheeseVideo.autoplay = true;
@@ -178,6 +179,7 @@ pubnub.addListener({
                     cheeseVideo.classList.add("animate__animated", "animate__fadeOut");
                  }, 2100);
                 setTimeout(function() { document.body.removeChild(cheeseVideo); }, 3000);
+                break;
             
             default:
                 break;
