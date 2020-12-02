@@ -164,6 +164,21 @@ pubnub.addListener({
                  }, 5000);
                 setTimeout(function() { document.body.removeChild(simpVideo); }, 6000);
             
+                case "cmd:cheese":
+                const cheeseVideo = document.createElement('video');
+                cheeseVideo.src = 'videos/cheese.mp4';
+                cheeseVideo.autoplay = true;
+                cheeseVideo.width = "320";
+                cheeseVideo.style.position = "absolute";
+                cheeseVideo.style.left = Math.floor(Math.random() * 1650).toString() + "px";
+                cheeseVideo.style.top = Math.floor(Math.random() * 960).toString() + "px";
+                cheeseVideo.controls = false;
+                document.body.appendChild(cheeseVideo);
+                setTimeout(function() { 
+                    cheeseVideo.classList.add("animate__animated", "animate__fadeOut");
+                 }, 2100);
+                setTimeout(function() { document.body.removeChild(cheeseVideo); }, 3000);
+            
             default:
                 break;
         }
