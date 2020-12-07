@@ -112,6 +112,7 @@ pubnub.addListener({
     message: function (msg) {
         const text = msg && msg.message && msg.message.text;
         const value = msg && msg.message && msg.message.value;
+        console.log(msg.message);
         switch (text) {
             case "cmd:nalu":
                 canFestival();
