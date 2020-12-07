@@ -3,7 +3,7 @@
 <head>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
-	<title>Lemiffe Twitch Overlay</title>
+	<title>Twitch Overlay</title>
 	<style type="text/css">
 	    .float-container {
 		    display: none;
@@ -32,11 +32,6 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
 	<script>
-
-/*
-    Dependencies: floating.js (for nalu cans)
-    https://animate.style/ for animations
-*/
 
 floating({
     content: '<img src="images/nalucan2.png" class="can" />',
@@ -88,6 +83,12 @@ function createImg(src, parent = null) {
     return item;
 }
 
+function speak(text) {
+    var msg = new SpeechSynthesisUtterance();
+    msg.text = text;
+    window.speechSynthesis.speak(msg);
+}
+
 const pubnub = new PubNub({
     subscribeKey: "sub-c-eb22fb3e-3185-11eb-9713-12bae088af96",
     uuid: "myUniqueUUID",
@@ -110,6 +111,7 @@ pubnub.addListener({
     },
     message: function (msg) {
         const text = msg && msg.message && msg.message.text;
+        const value = msg && msg.message && msg.message.value;
         switch (text) {
             case "cmd:nalu":
                 canFestival();
@@ -181,6 +183,10 @@ pubnub.addListener({
                 setTimeout(function() { document.body.removeChild(cheeseVideo); }, 3000);
                 break;
             
+            case "cmd:header":
+                speak(value);
+                break;
+
             default:
                 break;
         }
