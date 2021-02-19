@@ -184,6 +184,22 @@ pubnub.addListener({
                 setTimeout(function() { document.body.removeChild(cheeseVideo); }, 3000);
                 break;
             
+            case "cmd:dcolon":
+                const dcolonDiv = createDiv();
+                dcolonDiv.style.setProperty("--animate-duration", "1s");
+                dcolonDiv.classList.add("animate__animated", "animate__fadeIn");
+                dcolonDiv.width = "400";
+                dcolonDiv.style.position = "absolute";
+                dcolonDiv.style.left = Math.floor(Math.random() * 1650).toString() + "px";
+                dcolonDiv.style.top = Math.floor(Math.random() * 960).toString() + "px";
+                const dcolonImg = createImg('images/dcolon.png', dcolonDiv);
+                document.body.appendChild(dcolonDiv);
+                setTimeout(function() { 
+                    dcolonDiv.classList.add("animate__animated", "animate__fadeOut");
+                 }, 2100);
+                setTimeout(function() { document.body.removeChild(dcolonDiv); }, 3000);
+                break;
+
             case "cmd:header":
                 speak(value);
                 break;
