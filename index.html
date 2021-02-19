@@ -188,12 +188,16 @@ pubnub.addListener({
                 const dcolonDiv = createDiv();
                 dcolonDiv.style.setProperty("--animate-duration", "1s");
                 dcolonDiv.classList.add("animate__animated", "animate__fadeIn");
-                dcolonDiv.width = "350";
+                dcolonDiv.style.width = "200px";
+                dcolonDiv.style.height = "200px";
                 dcolonDiv.style.position = "absolute";
-                dcolonDiv.style.left = Math.floor(Math.random() * 1350).toString() + "px";
-                dcolonDiv.style.top = Math.floor(Math.random() * 880).toString() + "px";
+                dcolonDiv.style.left = Math.floor(Math.random() * 1780).toString() + "px";
+                dcolonDiv.style.top = Math.floor(Math.random() * 950).toString() + "px";
                 const dcolonImg = createImg('images/dcolon.png', dcolonDiv);
                 dcolonImg.style.objectFit = "contain";
+                dcolonImg.style.width = "100%";
+                dcolonImg.style.height = "100%";
+                dcolonImg.style.overflow = "hidden";
                 document.body.appendChild(dcolonDiv);
                 setTimeout(function() { 
                     dcolonDiv.classList.add("animate__animated", "animate__fadeOut");
